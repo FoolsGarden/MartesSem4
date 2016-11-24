@@ -1,69 +1,60 @@
-# Necesita preparar diferentes tipos de tortas.
-# Necesita meter las tortas por lotes al horno.
-# Y lo más importante saber cuando sacarlas.
+class Horno 
 
-class Horno
-
-  def bake_time_shuffle
-    time = rand(5..25)
-  end
-end
-class Tortas < Tortas
-  def initialize(bake_time)
-    @bake_time = bake_time
-  end
-
-  class Torta_Jamon < Tortas
-    if time == bake_time
-       "Lista"
-    elsif time > (5..7)
-       "Cruda"
-    elsif time < (8..9)
-      "casi lista"
-    elsif time < (11..25)
-      "quemada"  
-    end  
-  end
+ @@oven_time = 0
   
-  class Torta_Milanesa < Tortas
-    if time == time
-     "Lista"
-    elsif time > (5..10)
-     "Cruda"
-    elsif time < (10..14)
-      "casi lista"
-    elsif time < (16) 
-      "quemada"
-    end   
+  def initialize(tortas) 
+    @tortas = tortas
   end
 
-  class Torta_Pastor < Tortas
-    if time == time
-      "Lista"
-    elsif time > (5..12)
-      "Cruda"
-    elsif time < (13..19)
-      "casi lista"
-    elsif time < (21) 
-      "quemada"
-    end   
-  end
+ def time_in_oven
+    
+    @tortas.each do |torta|
+      time_torta = torta.time
+      puts name_torta = torta.type
+
+        while @@oven_time < 11
+
+          if @@oven_time == 0
+           p "cruda"
+         elsif @@oven_time < time_torta
+           p "casi lista"
+         elsif @@oven_time == time_torta
+           p "lista"
+         elsif @@oven_time > time_torta
+           p "quemada"
+          end 
+         @@oven_time += 1
+       end
+       @@oven_time = 0
+     end
+     p
+   end
+
 end
 
+class Torta
 
-torta = Torta_Pastor.new(20)
-torta = Torta_Milanesa.new(15)
-torta = Torta_Jamon.new(10)
+  attr_accessor :time, :type
 
-p bake_time
+  def initialize(type)
+    @type = type
+    if type == "jamon"
+      @time = 5
+    elsif type == "milanesa"
+      @time = 7
+    elsif type == "pastor"
+      @time = 9
+    end
+        
+  end
 
+end
 
-
-
-
-
-
-
-
-
-
+# p tortas_1 = Tortas.new("jamon")
+# p tortas_2 = Tortas.new("milanesa")
+# p tortas_3 = Tortas.new("pastor")
+horno = Horno.new([Torta.new("jamon"), Torta.new("milanesa"), Torta.new("pastor")])
+# p tortas_1.torta_jamon
+# p tortas_2.torta_pastor
+# p tortas_3.tortas_milanesa
+puts horno.time_in_oven
